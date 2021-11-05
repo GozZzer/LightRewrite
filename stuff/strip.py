@@ -1,12 +1,23 @@
-from typing import Optional
+from typing import Optional, List
 from enum import Enum
 
 from driver.apa102 import APA102
+import colour
 
 
 class PROGRAM(Enum):
     """Current Working Programs"""
     NONE = 0
+
+
+class STRIPE(Enum):
+    """All my Stripes"""
+    TABLE = (0, 110)
+    T = TABLE
+    BED = (111, 288)
+    B = BED
+    ALL = (0, 288)
+    A = ALL
 
 
 class LightStrip(APA102):
@@ -16,15 +27,8 @@ class LightStrip(APA102):
     """
 
     def __init__(self, *args, **kwargs):
-        # Includes the program which is running at my led stripes of my bed
-        self.bed_program: Optional[str] = None
-        # If the bed LED are enabled
-        self.bed: bool = False
-
-        # Includes the program which is running at my led stripes of my table
-        self.table_program: Optional[str] = None
-        # If the table LED are enabled
-        self.table: bool = False
+        self.bed = self.Bed()
+        self.table = self.Table()
 
         # The Number of LED`s at the table (0-110)
         self.num_table: int = 110
@@ -33,3 +37,23 @@ class LightStrip(APA102):
         self.num_bed: int = 177
 
         super().__init__(num_led=177, *args, **kwargs)
+
+    class Bed:
+        def __init__(self):
+            self.numbers = [_ for _ in range(111, 288)]
+            self.enabled: bool = False
+            self.colors: List[colour.Color] = []
+            self.rotate = False
+            self.rotation = 111
+            self.grade = False
+            self.brightness = 100
+
+    class Table:
+        def __init__(self):
+            self.numbers = [_ for _ in range(0, 110)]
+            self.enabled: bool = False
+            self.colors: List[colour.Color] = []
+            self.rotate = False
+            self.rotation = 0
+            self.grade = False
+            self.brightness = 100
