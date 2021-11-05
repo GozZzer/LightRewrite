@@ -24,32 +24,42 @@ class Effects:
                     print("Edit All")
                 if keyboard.is_pressed("d"):
                     self.bed.enabled = not self.bed.enabled
+                    self.edit_bed = False
+                    continue
                 elif keyboard.is_pressed("r"):
                     self.bed.rotate = not self.bed.rotate
                     self.edit_bed = False
+                    continue
                 elif keyboard.is_pressed("g"):
                     self.bed.grade = not self.bed.grade
                     self.edit_bed = False
+                    continue
                 elif keyboard.is_pressed("c"):
                     self.bed.color.append(Color(input("Color: ")))
                     self.edit_bed = False
+                    continue
             if self.edit_table or self.edit_all:
                 if self.edit_table:
                     print("Edit Table")
                 if keyboard.is_pressed("d"):
                     self.table.enabled = not self.table.enabled
+                    self.edit_table = False
+                    continue
                 elif keyboard.is_pressed("t"):
                     self.table.rotate = not self.table.rotate
                     self.edit_table = False
                     self.edit_all = False
+                    continue
                 elif keyboard.is_pressed("g"):
                     self.table.grade = not self.table.grade
                     self.edit_table = False
                     self.edit_all = False
+                    continue
                 elif keyboard.is_pressed("c"):
                     self.table.color.append(Color(input("Color: ")))
                     self.edit_table = False
                     self.edit_all = False
+                    continue
             else:
                 if keyboard.is_pressed("q"):
                     self.running = False
